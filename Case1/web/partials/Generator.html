@@ -1,0 +1,96 @@
+<div class="container" ng-controller="GeneratorCtrl">
+    <!--     <div class="text-center case-heading"><img src="../img/abcLogo2.PNG" width="55" height="55" alt="abcLogo2"/>-->
+    <div class="text-center case-heading">
+        <div class="panel-heading xsmall">
+            <h1 style="color: white;">Generator</h1>
+        </div>
+    </div>
+<form name="generatorForm" novalidate>
+    <div class="panel">
+        <div class="panel panel-primary">
+            <div class="panel-heading xsmall" style="text-align: center;">
+                Generator
+            </div>  
+            <div class="panel-body xsmall">
+                <div class="col-xs-5 col-lg-6 text-right">Vendor: </div>
+                <div class="col-xs-7 col-lg-6 text-left">
+                    <select name="vendorno" required ng-model="product.vendorno" ng-options="v.vendorno as v.vendorno for v in vendors" ng-change=" pickedVendor = true;
+                                    totalForm = false; addPO = false; pdf = false;
+                                    changeVendors()">
+                    </select>
+                </div>
+                <div class="col-xs-5 col-lg-6 text-right" ng-show="pickedVendor"> Product: </div>
+                <div class="col-xs-7 col-lg-6 text-left">
+                    <select  name="productName" required ng-model="productName"
+                             ng-options="p.productName as p.productName for p in products"
+                             ng-show="pickedVendor" >
+                        <option value="">...</option>
+                    </select>
+                </div>
+                <div ng-show="pickedVendor" class="top10pad">
+                    <div class="col-xs-5 col-lg-6 text-right">Qty: </div>
+                    <div class="col-xs-7 col-lg-6 text-left">
+                        <select class="input-small" ng-model="quantity" id="qty">
+                            <option value="">...</option>
+                            <option value="EOQ"> EOQ </option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-5 col-lg-6 text-right"  ng-show="pickedVendor"> </div>
+                <div class="col-xs-7 col-lg-6 text-left" ng-show="pickedVendor">
+                    <button class="btn-sm" ng-click="add()">Add</button>
+                </div>
+            </div>
+            <div id="totalsForm" ng-show="totalForm">
+                <div class="panel panel-primary">                    
+                    <div class="panel-heading xsmall" style="text-align: center;">
+                        <span style="float: left; margin-left: 20px;">
+                            Product
+                        </span>
+                        <span>
+                            Quantity
+                        </span>
+                        <span style="float: right;">
+                            Extended
+                        </span>
+                    </div>
+                </div>
+                <div id="main-content" >
+                    <table>
+                        <tbody class="" ng-repeat="item in items" style = "width: 100%;">
+                            <tr id="{{item.productName}}">
+                                <td style="padding-left: 40px;" class="col-lg-1 col-sm-3 col-xs-7 panel-heading xsmall">{{item.productName}}</td>
+                                <td class="col-lg-1 col-sm-2 col-xs-7 panel-heading xsmall">{{item.qty}}</td>
+                                <td class="col-lg-1 col-sm-1 col-xs-3 panel-heading xsmall" style="text-align: right;">{{item.qty * item.costPrice | currency}}</td>
+                            </tr>
+                        </tbody>
+                        <tr id="venEnd"><td colspan="4"></td> </tr>
+                    </table>
+                    <hr />
+                    <div id="totalDiv" style="padding-right: 10px;">
+                        <div align="right">Sub: {{sub.toFixed(2) | currency}} </div>        
+                        <hr />
+                        <div align="right">Tax: {{tax.toFixed(2) | currency}}</div>    
+                        <hr />
+                       <div align="right">Total: {{(sub + tax).toFixed(2) | currency}}</div>
+                    </div>                
+
+                </div>
+
+                <!-- Buttons -->
+                <div style="float: right; margin: 10px;">
+                    <button class="btn btn-default btn-sm" ng-click="createPO();" style="background: #428bca; Color: white;" ng-show="addPO">AddPO</button>
+                </div>
+                <div style="float: right; margin: 10px;">
+                    <button class="btn btn-default btn-sm" ng-click="viewPdf()" style="background: #428bca; Color: white;" ng-show="pdf">PDF</button>
+                </div>
+            </div>
+           <div class="panel-footer text-primary xsmall" style="text-align: center" >{{status}}</div>
+        </div>
+</form>
+</div>

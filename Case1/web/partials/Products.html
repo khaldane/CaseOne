@@ -1,0 +1,45 @@
+<div class="container" ng-controller="ProductCtrl">
+    <!--     <div class="text-center case-heading"><img src="../img/abcLogo2.PNG" width="55" height="55" alt="abcLogo2"/>-->
+    <div class="text-center case-heading">
+        <div class="panel-heading xsmall">
+            <h1 style="color: white;">Products</h1>
+        </div>
+    </div>
+    <div id="entireTable" style="border: 1px solid black;">
+        <div style="border: 1px solid black; width: 100%; background: black; Color: white;" class="tblItemHead col-lg-6 col-sm-6 col-xs-6" id="tblHead">
+            <div class="col-lg-1 col-sm-1 col-xs-1" id="vhd1" ng-click="predicate = 'vendorno';">
+                Code
+            </div>
+            <div class="col-lg-1 col-sm-1 col-xs-5" id="vhd2" ng-click="predicate = 'name';">
+                Name
+            </div>
+            <div class="col-lg-1 col-sm-1 col-xs-3" id="vhd3" ng-click="predicate = 'city';">
+                Vendor
+            </div>
+            <div class="col-lg-1 col-sm-1 col-xs-2" id="vhd1" ng-click="predicate = 'type';">
+                MSRP
+            </div>
+        </div>
+        <div id="main-content" >
+            <table style="width: 100%">
+                <tr class="trPaleBlue" ng-click="selectRow(-1, null)">
+                    <td colspan="5" style="padding-left: 45px;">...Click to add, else click on desired vendor</td>
+                </tr>
+                <tbody class="" ng-repeat="product in products" ng-class="{trWhite: $even, trPaleBlue: $odd, itemSelected: $index === selectedRow }"
+                    ng-click="selectRow($index, product)" >
+                    <tr id="{{product.productcode}}">
+                        <td style="padding-left: 20px;" align="left">{{product.productCode}}</td>
+                        <td align="left">{{product.productName}}</td>
+                        <td align="left">{{product.vendorno}}</td>
+                        <td align="left" style="float: right; padding-right: 20px;">{{product.msrp | currency}}</td>
+                    </tr>
+                </tbody>
+                <tr id="venEnd"><td colspan="4"></td> </tr>
+            </table>
+        </div>
+   </div>
+    <div class="panel-footer text-primary xsmall">{{status}}</div>
+</div>
+    
+
+
